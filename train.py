@@ -1,6 +1,6 @@
 import torch
 from homa.rl import DiversityIsAllYouNeed
-from .utils import make_environment
+from utils import make_environment
 
 algorithm = DiversityIsAllYouNeed()
 env = make_environment()
