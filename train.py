@@ -6,7 +6,7 @@ from utils import make_environment
 warnings.filterwarnings("ignore")
 
 algorithm = DiversityIsAllYouNeed(state_dimension=24, action_dimension=4)
-env = make_environment()
+env = make_environment("BipedalWalker-v3")
 
 for episode in range(1000):
     done = False
