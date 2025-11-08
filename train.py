@@ -1,6 +1,9 @@
 import torch
+import warnings
 from homa.rl import DiversityIsAllYouNeed
 from utils import make_environment
+
+warnings.filterwarnings("ignore")
 
 algorithm = DiversityIsAllYouNeed(state_dimension=24, action_dimension=4)
 env = make_environment()
@@ -19,6 +22,7 @@ for episode in range(1000):
         )
         done = truncated or terminated
         reward = algorithm.discriminator.reward(state, skill)
+        next_state = torch.tensor(next_state).float().unsqueeze(0)
         algorithm.buffer.record(
             state=state,
             next_state=next_state,
@@ -28,5 +32,8 @@ for episode in range(1000):
             termination=done,
         )
         state = next_state
+
+    algorithm.train(skill=skill)
+    algorithm.buffer.reset()
 
 env.close()
