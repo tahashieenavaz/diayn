@@ -27,3 +27,4 @@ for episode in range(1000):
             probability=probability,
             termination=done,
         )
+        state = next_state
