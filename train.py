@@ -17,12 +17,11 @@ for episode in range(1000):
         state = torch.tensor(state).float().unsqueeze(0)
         skills = skill.repeat(state.size(0), 1)
         action, probability = algorithm.actor.action(state, skill)
-        next_state, _, terminated, truncated, _ = env.step(
-            action.squeeze().detach().cpu().numpy()
-        )
+        action = action.squeeze().detach().cpu().numpy()
+        next_state, _, terminated, truncated, _ = env.step(action=action)
         done = truncated or terminated
         reward = algorithm.discriminator.reward(state, skill)
-        next_state = torch.tensor(next_state).float().unsqueeze(0)
+        next_state = torch.tensor(next_state).float()
         algorithm.buffer.record(
             state=state,
             next_state=next_state,
