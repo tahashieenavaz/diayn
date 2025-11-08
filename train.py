@@ -25,4 +25,5 @@ for episode in range(1000):
             action=action,
             reward=reward,
             probability=probability,
+            termination=done,
         )
