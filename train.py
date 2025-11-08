@@ -28,3 +28,5 @@ for episode in range(1000):
             termination=done,
         )
         state = next_state
+
+env.close()
